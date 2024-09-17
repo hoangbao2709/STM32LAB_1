@@ -1,0 +1,3 @@
+traffic_1.c:10:13:LED_RED_1	8	static
+traffic_1.c:16:13:LED_GREEN_1	8	static
+traffic_1.c:22:13:LED_YELLOW_1	8	static

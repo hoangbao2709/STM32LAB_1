@@ -22,7 +22,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "traffic_1.c"
+#include "traffic_2.c"
+#include "component.c"
+#include "component_1.c"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +50,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -83,14 +87,64 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int bool = 0;
+  int counter = 0;
+  int i = 5, j = 3;
+  int test = 1;
   while (1)
   {
+	  if(bool == 0){
+		  LED_RED_1();
+		  display7SEG(i--);
+		  if(test == 1){
+			  LED_GREEN_2();
+			  display7SEG_1(j--);
+		  }else{
+			  LED_YELLOW_2();
+			  display7SEG_1(j--);
+		  }
+		  if(j == 0) {
+			  j = 2;
+			  test = 0;
+		  }
+		  counter++;
+		  if(counter == 5){
+			  bool = 1;
+			  counter = 0;
+			  i = 5; j = 3;
+			  test = 1;
+		  }
+	  }else{
+			LED_RED_2();
+			display7SEG_1(i--);
+			if(test == 1){
+				LED_GREEN_1();
+				display7SEG(j--);
+			}else{
+				LED_YELLOW_1();
+				display7SEG(j--);
+			}
+			if(j == 0) {
+				j = 2;
+				test = 0;
+			}
+			counter++;
+			if(counter == 5){
+				bool = 0;
+				counter = 0;
+				i = 5; j = 3;
+				test = 1;
+			}
+		}
+
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -131,6 +185,53 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, a1_Pin|b1_Pin|c1_Pin|d_Pin
+                          |e_Pin|f_Pin|g_Pin|d1_Pin
+                          |e1_Pin|f1_Pin|g1_Pin|a_Pin
+                          |b_Pin|c_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin|LED_YELLOW_1_Pin|LED_GREEN_1_Pin|LED_RED_2_Pin
+                          |LED_YELLOW_2_Pin|LED_GREEN_2_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : a1_Pin b1_Pin c1_Pin d_Pin
+                           e_Pin f_Pin g_Pin d1_Pin
+                           e1_Pin f1_Pin g1_Pin a_Pin
+                           b_Pin c_Pin */
+  GPIO_InitStruct.Pin = a1_Pin|b1_Pin|c1_Pin|d_Pin
+                          |e_Pin|f_Pin|g_Pin|d1_Pin
+                          |e1_Pin|f1_Pin|g1_Pin|a_Pin
+                          |b_Pin|c_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LED_RED_1_Pin LED_YELLOW_1_Pin LED_GREEN_1_Pin LED_RED_2_Pin
+                           LED_YELLOW_2_Pin LED_GREEN_2_Pin */
+  GPIO_InitStruct.Pin = LED_RED_1_Pin|LED_YELLOW_1_Pin|LED_GREEN_1_Pin|LED_RED_2_Pin
+                          |LED_YELLOW_2_Pin|LED_GREEN_2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */

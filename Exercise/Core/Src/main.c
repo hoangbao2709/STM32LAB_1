@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Ex6.c"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +47,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -83,14 +84,22 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int counter = 0;
   while (1)
   {
+	  init_Exercise_6(counter++);
+	  if(counter == 13){
+		  counter = 0;
+		  clearAllClock();
+	  }
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -131,6 +140,36 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, o0_Pin|o1_Pin|o2_Pin|o3_Pin
+                          |o4_Pin|o5_Pin|o6_Pin|o7_Pin
+                          |o8_Pin|o9_Pin|o10_Pin|o11_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : o0_Pin o1_Pin o2_Pin o3_Pin
+                           o4_Pin o5_Pin o6_Pin o7_Pin
+                           o8_Pin o9_Pin o10_Pin o11_Pin */
+  GPIO_InitStruct.Pin = o0_Pin|o1_Pin|o2_Pin|o3_Pin
+                          |o4_Pin|o5_Pin|o6_Pin|o7_Pin
+                          |o8_Pin|o9_Pin|o10_Pin|o11_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */

@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Ex6.c"
+#include "Ex8.c"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,18 +92,18 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   int counter = 0;
-  while (1)
-  {
-	  init_Exercise_6(counter++);
-	  if(counter == 13){
-		  counter = 0;
-		  clearAllClock();
-	  }
-	  HAL_Delay(1000);
-    /* USER CODE END WHILE */
+	while (1)
+	{
+		setNumberOnClock(counter++);
+		if(counter == 12){
+			counter = 0;
+		}
+		HAL_Delay(1000);
+		/* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }
+		/* USER CODE BEGIN 3 */
+		}
+	/* USER CODE END 3 */
   /* USER CODE END 3 */
 }
 

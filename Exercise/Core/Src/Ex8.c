@@ -1,7 +1,7 @@
 /*
  * Ex8.c
  *
- *  Created on: 17 Sep 2024
+ *  Created on: Sep 17, 2024
  *      Author: PC
  */
 #include "main.h"

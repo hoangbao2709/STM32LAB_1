@@ -92,15 +92,50 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int counter = 0;
-  	while (1)
+  	int hour = 0;
+	int minute = 0;
+	int second = 0;
+	int countSecond = 0;
+	int countMinute = 0;
+	while (1)
   	{
-		setNumberOnClock(counter);
-		HAL_Delay(1000);
-		clearNumberOnClock(counter++);
-		if(counter == 12){
-			counter = 0;
-		}
+  		setNumberOnClock(hour);
+  		setNumberOnClock(minute);
+  		setNumberOnClock(second);
+  		HAL_Delay(1000);
+  		clearNumberOnClock(hour);
+  		clearNumberOnClock(minute);
+  		clearNumberOnClock(second);
+
+  		countSecond++;
+  		if (countSecond >= 5)
+  		{
+  			second++;
+  			countSecond = 0;
+  		}
+
+  		if (second >= 12)
+  		{
+  			second = 0;
+  			countMinute++;
+  		}
+
+  		if (countMinute >= 5)
+  		{
+  			second++;
+  			countSecond = 0;
+  		}
+
+  		if (minute >= 12)
+  		{
+  			minute = 0;
+  			hour++;
+  		}
+
+  		if (hour >= 12)
+  		{
+  			hour = 0;
+  		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -1,0 +1,15 @@
+Ex4.c:9:13:Khong	8	static
+Ex4.c:19:14:Mot	8	static
+Ex4.c:29:13:Hai	8	static
+Ex4.c:39:13:Ba	8	static
+Ex4.c:49:13:Bon	8	static
+Ex4.c:59:13:Nam	8	static
+Ex4.c:69:13:Sau	8	static
+Ex4.c:79:13:Bay	8	static
+Ex4.c:89:13:Tam	8	static
+Ex4.c:99:13:Chin	8	static
+Ex4.c:109:13:display7SEG	16	static
+main.c:64:5:main	16	static
+main.c:111:6:SystemClock_Config	72	static
+main.c:147:13:MX_GPIO_Init	32	static
+main.c:177:6:Error_Handler	4	static,ignoring_inline_asm

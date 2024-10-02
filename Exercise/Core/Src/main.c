@@ -102,7 +102,7 @@ int main(void)
   		setNumberOnClock(hour);
   		setNumberOnClock(minute);
   		setNumberOnClock(second);
-  		HAL_Delay(1000);
+  		HAL_Delay(500);
   		clearNumberOnClock(hour);
   		clearNumberOnClock(minute);
   		clearNumberOnClock(second);
@@ -122,8 +122,8 @@ int main(void)
 
   		if (countMinute >= 5)
   		{
-  			second++;
-  			countSecond = 0;
+  			minute++;
+  			countMinute = 0;
   		}
 
   		if (minute >= 12)
